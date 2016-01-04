@@ -1,0 +1,14 @@
+{
+  "name": "blink-leds-es6",
+  "version": "1.0.0",
+  "description": "Blink LEDs",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "jfathman",
+  "license": "ISC",
+  "dependencies": {
+    "onoff": "^1.0.3"
+  }
+}
