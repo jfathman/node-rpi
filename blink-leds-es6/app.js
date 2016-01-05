@@ -45,39 +45,49 @@ class Led {
         this.state() == ON ? this.off() : this.on();
     }
 
-    blinkStart(rate) {
+    shutdown() {
+        this.off();
+        this.unexport();
+    }
+}
+
+class Blink extends Led {
+    constructor(pin, name) {
+        super(pin, name);
+    }
+
+    start(rate) {
         var _this = this;
         this.timer = setInterval(function () {
             _this.toggle();
         }, rate);
     }
 
-    blinkStop() {
+    stop() {
         this.timer && clearInterval(this.timer);
         this.timer = null;
     }
 
-    shutdown() {
-        this.blinkStop();
-        this.off();
-        this.unexport();
+    end() {
+        this.stop();
+        this.shutdown();
     }
 }
 
-var ledBlue = new Led(17, 'blue');
-var ledRed  = new Led(22, 'red');
+var ledBlue = new Blink(17, 'blue');
+var ledRed  = new Blink(22, 'red');
 
-ledBlue.blinkStart(rateBlue);
-ledRed.blinkStart(rateRed);
+ledBlue.start(rateBlue);
+ledRed.start(rateRed);
 
 setTimeout(function() {
-    ledBlue.shutdown();
-    ledRed.shutdown();
+    ledBlue.end();
+    ledRed.end();
 }, duration);
 
 process.on('SIGINT', function() {
-    ledBlue.shutdown();
-    ledRed.shutdown();
+    ledBlue.end();
+    ledRed.end();
     console.log();
     process.exit();
 });
