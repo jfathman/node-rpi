@@ -25,6 +25,10 @@ class Led {
         this.device = new Gpio(pin, 'out');
     }
 
+    unexport() {
+        this.device.unexport();
+    }
+
     state() {
         return this.device.readSync();
     }
@@ -41,30 +45,30 @@ class Led {
         this.state() == ON ? this.off() : this.on();
     }
 
-    start(rate) {
+    blinkStart(rate) {
         var _this = this;
         this.timer = setInterval(function () {
             _this.toggle();
         }, rate);
     }
 
-    stop() {
+    blinkStop() {
         this.timer && clearInterval(this.timer);
         this.timer = null;
     }
 
     shutdown() {
-        this.stop();
+        this.blinkStop();
         this.off();
-        this.device.unexport();
+        this.unexport();
     }
 }
 
 var ledBlue = new Led(17, 'blue');
 var ledRed  = new Led(22, 'red');
 
-ledBlue.start(rateBlue);
-ledRed.start(rateRed);
+ledBlue.blinkStart(rateBlue);
+ledRed.blinkStart(rateRed);
 
 setTimeout(function() {
     ledBlue.shutdown();
