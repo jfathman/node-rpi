@@ -4,4 +4,5 @@
 
   * blink-leds
   * blink-leds-es6
+  * blink-leds-ts
 

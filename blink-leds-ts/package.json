@@ -1,0 +1,19 @@
+{
+  "name": "blink-leds-ts",
+  "version": "1.0.0",
+  "description": "Blink LEDs",
+  "main": "app.js",
+  "scripts": {
+    "build": "tsc app.ts",
+    "start": "sudo $(which node) app 20 30 5000"
+  },
+  "author": "jfathman",
+  "license": "ISC",
+  "dependencies": {
+    "onoff": "^1.0.3"
+  },
+  "devDependencies": {
+    "tsd": "^0.6.5",
+    "typescript": "^1.7.5"
+  }
+}
